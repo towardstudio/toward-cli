@@ -1,5 +1,6 @@
 import { Environment } from "../types.ts";
 import { exportEnvironmentVariables } from "./utilities/exportEnvironmentVariables.ts";
+import { detectEnvironments, detectLocalEnvironments, detectRemoteEnvironments } from "./utilities/detectEnvironments.ts";
 
 import { version } from "./version.ts";
 
@@ -23,12 +24,26 @@ export const app = {
 	contact: "dev@toward.studio",
 };
 
-export const environments: Environment[] = ["dev", "staging", "production"];
-export const localEnvironments: Environment[] = ["dev"];
-export const remoteEnvironments: Environment[] = ["staging", "production"];
-
 await exportEnvironmentVariables(".env");
 await exportEnvironmentVariables(app.dotfile);
+
+// Environment detection functions that return current state
+export function getEnvironments(): Environment[] {
+	return detectEnvironments();
+}
+
+export function getLocalEnvironments(): Environment[] {
+	return detectLocalEnvironments();
+}
+
+export function getRemoteEnvironments(): Environment[] {
+	return detectRemoteEnvironments();
+}
+
+// For backwards compatibility, also export as constants
+export const environments: Environment[] = detectEnvironments();
+export const localEnvironments: Environment[] = detectLocalEnvironments();
+export const remoteEnvironments: Environment[] = detectRemoteEnvironments();
 
 /** The project's environment variables represented as an object. */
 export const env = {

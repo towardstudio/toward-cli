@@ -72,7 +72,38 @@ PRODUCTION_SITE_DIRECTORY=
 PRODUCTION_DATABASE_NAME=
 PRODUCTION_DATABASE_USERNAME=
 PRODUCTION_DATABASE_PASSWORD=
+
+# Custom environments (NEW!)
+# You can now define any number of custom environments
+# by following the pattern: {ENVIRONMENT_NAME}_{VARIABLE_TYPE}
+# Example: A testing environment
+TESTING_SERVER_IP=
+TESTING_SERVER_ADDRESS=
+TESTING_SERVER_USERNAME=
+TESTING_SITE_DIRECTORY=
+TESTING_DATABASE_NAME=
+TESTING_DATABASE_USERNAME=
+TESTING_DATABASE_PASSWORD=
 ```
+
+### Custom Environments
+
+As of this version, you can define custom environments by adding environment variables that follow the pattern `{ENVIRONMENT_NAME}_{VARIABLE_TYPE}`. The CLI will automatically detect and allow you to use these environments.
+
+**Example**: If you define `TESTING_SERVER_IP=...` variables, you can then run:
+```sh
+toward assets push -e testing
+toward database pull -e testing
+```
+
+The CLI automatically detects environments based on the presence of these variable patterns:
+- `{ENV}_SERVER_IP`
+- `{ENV}_SERVER_ADDRESS`
+- `{ENV}_SERVER_USERNAME`
+- `{ENV}_SITE_DIRECTORY`
+- `{ENV}_DATABASE_NAME`
+- `{ENV}_DATABASE_USERNAME`
+- `{ENV}_DATABASE_PASSWORD`
 
 ## For Developers
 
