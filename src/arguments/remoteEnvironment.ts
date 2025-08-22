@@ -1,13 +1,13 @@
 import { Args } from "../../deps.ts";
 import { Argument, Command, Environment } from "../../types.ts";
-import { remoteEnvironments } from "../constants.ts";
+import { getRemoteEnvironments } from "../constants.ts";
 import ErrorMessage from "../libraries/messages/ErrorMessage.ts";
 import getArgumentValue from "../utilities/getArgumentValue.ts";
 
 /** The argument definition. */
 const argument: Argument = {
 	run: run,
-	description: `Which environment to perform the action on. <${remoteEnvironments.join(" | ")}>`,
+	description: `Which environment to perform the action on. <${getRemoteEnvironments().join(" | ")}>`,
 	flags: ["environment", "env", "e"],
 };
 
@@ -24,7 +24,7 @@ function run(_command: Command, args: Args): Environment {
 		new ErrorMessage("No environment has been entered.", true);
 	}
 
-	if (!remoteEnvironments.includes(environment)) {
+	if (!getRemoteEnvironments().includes(environment)) {
 		new ErrorMessage(`"${environment}" is not a valid environment in this context.`, true);
 	}
 
