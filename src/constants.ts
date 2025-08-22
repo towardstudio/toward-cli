@@ -1,5 +1,6 @@
 import { Environment } from "../types.ts";
 import { exportEnvironmentVariables } from "./utilities/exportEnvironmentVariables.ts";
+import { detectEnvironments, detectLocalEnvironments, detectRemoteEnvironments } from "./utilities/detectEnvironments.ts";
 
 import { version } from "./version.ts";
 
@@ -23,9 +24,9 @@ export const app = {
 	contact: "dev@toward.studio",
 };
 
-export const environments: Environment[] = ["dev", "staging", "production"];
-export const localEnvironments: Environment[] = ["dev"];
-export const remoteEnvironments: Environment[] = ["staging", "production"];
+export const environments: Environment[] = detectEnvironments();
+export const localEnvironments: Environment[] = detectLocalEnvironments();
+export const remoteEnvironments: Environment[] = detectRemoteEnvironments();
 
 await exportEnvironmentVariables(".env");
 await exportEnvironmentVariables(app.dotfile);

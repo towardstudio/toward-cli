@@ -1,6 +1,6 @@
 import { Args } from "./deps.ts";
 
-export type Environment = "dev" | "staging" | "production";
+export type Environment = string;
 
 export type Command = {
 	/** The command's callable function. */
